@@ -22,7 +22,7 @@ import DashboardIcon from '@material-ui/icons/DashboardSharp'
 /// CHANGE THE ICONS
 
 
-const SideDrawer = () => {
+const SideDrawer = ({signOutUser,users}) => {
   
     const [state, setState] = useState(false)
 
@@ -61,15 +61,22 @@ const SideDrawer = () => {
                         <ListItemText primary='Contact'/>
                     </ListItem>
 
+                    { !users.auth ?
                     <ListItem button component={RouterLink} to='/auth' onClick={()=>setState(false)} style={{fontFamily:'Turret Road'}}>
                         <ListItemIcon><LoginSharpIcon style={{color:'black'}}/></ListItemIcon>
                         <ListItemText primary='Sign in'/>
                     </ListItem>
-
-                    <ListItem button component={RouterLink} to='/auth' onClick={()=>setState(false)} style={{fontFamily:'Turret Road'}}>
+                    :
+                    <ListItem button onClick={()=>{
+                        signOutUser()
+                        setState(false)
+                    }} style={{fontFamily:'Turret Road'}}>
                         <ListItemIcon><LogoutSharpIcon style={{color:'black'}}/></ListItemIcon>
                         <ListItemText primary='Sign out'/>
                     </ListItem>
+                    }
+                    { users.auth ?
+                    <>
                     <Divider/>
                     <List>
                         <ListItem button component={RouterLink} to='/dashboard' onClick={()=>setState(false)} style={{fontFamily:'Turret Road'}}>
@@ -77,6 +84,8 @@ const SideDrawer = () => {
                             <ListItemText primary='Dashboard'/>
                         </ListItem>
                     </List>
+                    </>
+                    :null}
                 </MuiThemeProvider>
             </List>
         </Drawer>

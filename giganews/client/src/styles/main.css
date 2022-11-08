@@ -76,7 +76,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .article_container h1 {
   font-weight: 900;
   font-size: 50px;
-  margin-top: 30px;
+  margin-top: 20px;
+  /* border-bottom: 1px solid #000000; */
 }
   
 .article_container {
@@ -161,14 +162,14 @@ color: #525252;
 .dash_layout nav{ 
   background: #212121;
   padding: 0px;
-  border-right: 5px solid #565656;
+  border-right: 5px solid #000000;
 }
 
 .dash_layout .MuiList-root {
   color: #fff;
 }
 
-.dash_layout .MuiButtonBase-root {
+.dash_layout .btnDash{
   border-bottom: 1px solid #313131;
 }
 

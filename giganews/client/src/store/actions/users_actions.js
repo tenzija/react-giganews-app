@@ -1,6 +1,6 @@
 import * as users from './index'
 import Axios from 'axios'
-import { getAuthHeader } from '../../utils/tools'
+import { getAuthHeader, removeTokenCookie, getTokenCookie } from '../../utils/tools'
 
 Axios.defaults.headers.post['Content-Type'] = 'application/json'
 
@@ -37,10 +37,20 @@ export const signInUser = (values) => {
 export const isAuthUser = () => {
     return async (dispatch) => {
         try{
-            const user = await Axios.get(`/api/users/isauth`, getAuthHeader)
+            if(!getTokenCookie()){
+                throw new Error()
+            }
+            const user = await Axios.get(`/api/users/isauth`, getAuthHeader())
             dispatch(users.authUser({data:user.data, auth:true}))
         } catch(error){
             dispatch(users.authUser({data:{}, auth:false}))
         }
+    }
+}
+
+export const signOut = () => {
+    return async(dispatch) => {
+        removeTokenCookie()
+        dispatch(users.signOut())
     }
 }

@@ -3,7 +3,10 @@ import {
     ERROR_GLOBAL,
     SUCCESS_GLOBAL,
     CLEAR_NOTIFICATION,
-    AUTH_USER
+    AUTH_USER,
+    SIGN_OUT,
+    SITE_LAYOUT,
+    GET_ARTICLE
 } from '../types'
 
 // ARTICLES
@@ -11,6 +14,11 @@ import {
 export const getArticles = (articles) => ({
     type: GET_ARTICLES,
     payload: articles
+})
+
+export const getArticle = (article) => ({
+    type:GET_ARTICLE,
+    payload:article
 })
 
 // NOTIFICATION
@@ -38,4 +46,15 @@ export const clearNotification = () => {
 export const authUser = (user) => ({
     type: AUTH_USER,
     payload: user
+})
+
+export const signOut = () => ({
+    type: SIGN_OUT
+})
+
+// SITE
+
+export const appLayout = (layout) => ({
+    type:SITE_LAYOUT,
+    payload:layout
 })

@@ -65,7 +65,7 @@ const Home = () => {
             setSort({skip:skip})
           }}
           className='mt-3'
-          style={{fontWeight:400}}
+          style={{background:'black',color:'white', fontWeight:400}}
         >
           &gt; Load_<span style={{fontWeight:800}}>more</span>
         </Button>

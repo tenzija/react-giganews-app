@@ -13,6 +13,8 @@ import {
 
 /// IMPORT ICONS
 
+import PreventAuthRoute from "../../hoc/preventAuthRoute";
+
 const authFont = createMuiTheme({
     typography: {
         "fontFamily": `'Turret Road', cursive`,
@@ -66,7 +68,7 @@ const Auth = (props) => {
     },[notifications, props.history])
 
     return(
-        <>
+        <PreventAuthRoute>
             <div className="auth_container">
                 <div style={{fontFamily:'Turret Road',fontWeight:800,fontSize:34}}><span style={{fontFamily:'Turret Road',fontWeight:200}}>&gt;_</span>Authenticate:</div>
                 <form className="mt-3" onSubmit={formik.handleSubmit}>
@@ -102,7 +104,7 @@ const Auth = (props) => {
                     </MuiThemeProvider>
                 </form>
             </div>
-        </>
+        </PreventAuthRoute>
     )
 }
 

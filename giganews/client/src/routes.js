@@ -4,12 +4,17 @@ import GoogleFontLoader from 'react-google-font-loader'
 import { useDispatch, useSelector } from 'react-redux'
 import { isAuthUser } from './store/actions/users_actions'
 
+import authguard from './hoc/authGuard'
+import Article from './components/articles/article'
+
 import Home from './components/home'
 import Header from './components/navigation/header'
 import Auth from './components/auth'
 import MainLayout from './hoc/mainLayout'
 import Loader from './utils/loader'
-
+import Dashboard from './components/dashboard'
+import Profile from './components/dashboard/profile'
+import Articles from './components/dashboard/articles'
 
 const Routes = () => {
   const [loading, setLoading] = useState(true)
@@ -36,7 +41,11 @@ const Routes = () => {
         </div>
         :
         <MainLayout>
+          <Route path='/dashboard/articles' component={authguard(Articles,true)}/>
           <Switch>
+            <Route path='/dashboard/profile' component={authguard(Profile)}/>
+            <Route path='/dashboard' component={authguard(Dashboard)}/>
+            <Route path='/article/:id' component={Article}/>
             <Route path='/auth' component={Auth}/>
             <Route path='/' component={Home}/>
           </Switch>
