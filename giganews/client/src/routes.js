@@ -6,6 +6,7 @@ import { isAuthUser } from './store/actions/users_actions'
 
 import authguard from './hoc/authGuard'
 import Article from './components/articles/article'
+import AddArticle from './components/dashboard/articles/add'
 
 import Home from './components/home'
 import Header from './components/navigation/header'
@@ -41,8 +42,9 @@ const Routes = () => {
         </div>
         :
         <MainLayout>
-          <Route path='/dashboard/articles' component={authguard(Articles,true)}/>
           <Switch>
+            <Route path='/dashboard/articles/add' component={authguard(AddArticle,true)}/>
+            <Route path='/dashboard/articles' component={authguard(Articles,true)}/>
             <Route path='/dashboard/profile' component={authguard(Profile)}/>
             <Route path='/dashboard' component={authguard(Dashboard)}/>
             <Route path='/article/:id' component={Article}/>
