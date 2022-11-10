@@ -2,6 +2,7 @@ import React, { useState,useEffect,useRef } from "react";
 import AdminLayout from "../../../hoc/adminLayout";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { addArticle } from '../../../store/actions/article_actions'
 import { validation, formValues } from './validationSchema'
 
 import WYSIWYG from "../../../utils/forms/wysisyg";
@@ -23,6 +24,7 @@ import {
 } from '@material-ui/core'
 
 import AddSharpIcon from "@material-ui/icons/AddSharp";
+import Loader from '../../../utils/loader'
 import RemoveSharpIcon from '@material-ui/icons/ClearSharp'
 
 const buttonTheme = createMuiTheme({
@@ -33,20 +35,30 @@ const buttonTheme = createMuiTheme({
 })
 
 const AddArticle = (props) => {
-
+    const [editorBlur, setEditorBlur] = useState(false)
+    const [isSubmiting, setIsSubmiting] = useState(false)
+    
     const actorsValue = useRef('')
+
+    const dispatch = useDispatch()
+    const notifications = useSelector(state=>state.notifications)
 
     const formik = useFormik({
         enableReinitialize:true,
         initialValues:formValues,
         validationSchema:validation,
         onSubmit:(values,{resetForm}) => {
-            console.log(values)
+            setIsSubmiting(true)
+            dispatch(addArticle(values))
         }
     })
 
+    const handleEditorBlur = (blur) => {
+        setEditorBlur(true)
+    }
+
     const handleEditorState = (state) => {
-        console.log(state)
+        formik.setFieldValue('content', state, true)
     }
 
     const errorHelper = (formik, values) => ({
@@ -54,8 +66,24 @@ const AddArticle = (props) => {
         helperText: formik.errors[values] && formik.touched[values] ? formik.errors[values] : null
     })
 
+    useEffect(()=>{
+        if(notifications && notifications.success){
+            props.history.push('/dashboard/articles')
+        }
+        if(notifications && notifications.error){
+            setIsSubmiting(false)
+        }
+    },[notifications, props.history])
+
     return(
         <AdminLayout section='Add article'>
+
+            { isSubmiting ?
+                <div className="d-flex justify-content-center">
+                    <Loader/> 
+                </div>           
+            :
+
             <form className="mt-3 article_form"
              onSubmit={formik.handleSubmit}
             >
@@ -74,6 +102,19 @@ const AddArticle = (props) => {
                 <div className="form-group">
                     <WYSIWYG
                         setEditorState={(state)=>handleEditorState(state)}
+                        setEditorBlur={(blur)=>handleEditorBlur(blur)}
+                    />
+
+                        { formik.errors.content && editorBlur ?
+                            <FormHelperText error={true}>
+                                {formik.errors.content}
+                            </FormHelperText>  
+                        :null}
+
+                    <TextField
+                        type="hidden"
+                        name='content'
+                        {...formik.getFieldProps('content')}
                     />
                 </div>
 
@@ -86,7 +127,7 @@ const AddArticle = (props) => {
                         {...formik.getFieldProps('excerpt')}
                         {...errorHelper(formik,'excerpt')}
                         multiline
-                        rows={4}
+                        rows={2}
                     />
                 </div>
 
@@ -200,6 +241,7 @@ const AddArticle = (props) => {
                     </Button>
                 </MuiThemeProvider>
             </form>
+            }
         </AdminLayout>
     )
 }

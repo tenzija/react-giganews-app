@@ -7,13 +7,25 @@ import {
     SIGN_OUT,
     SITE_LAYOUT,
     GET_ARTICLE,
-    CLEAR_CURRENT_ARTICLE
+    CLEAR_CURRENT_ARTICLE,
+    ADD_ARTICLE,
+    GET_ADMIN_ARTICLES
 } from '../types'
 
 // ARTICLES
 
+export const addArticle = (article) => ({
+    type: ADD_ARTICLE,
+    payload: article
+})
+
 export const getArticles = (articles) => ({
     type: GET_ARTICLES,
+    payload: articles
+})
+
+export const getPaginateArticles = (articles) => ({
+    type: GET_ADMIN_ARTICLES,
     payload: articles
 })
 

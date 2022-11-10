@@ -218,6 +218,32 @@ color: #525252;
   min-width: 200px;
 }
 
+.addArticleButton {
+  color: white;
+  background: #000000;
+  font-family: 'Turret Road', sans-serif;
+  border: black!important;
+}
+
+.addArticleButton:hover {
+  color: black;
+  background: white !important;
+  font-family: 'Turret Road', sans-serif;
+  border: black;
+  border-color: #000000 !important;
+  outline: #000000 !important;
+  box-shadow: black !important;
+}
+
+.addArticleButton:active:focus {
+  color: white !important;
+  background: black !important;
+  font-family: 'Turret Road', sans-serif;
+  border: black !important;
+  outline: black !important;
+  box-shadow: black !important;
+}
+
 .stepper_form {
   text-align: center;
 }
