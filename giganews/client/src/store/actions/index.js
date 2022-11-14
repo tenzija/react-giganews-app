@@ -9,7 +9,9 @@ import {
     GET_ARTICLE,
     CLEAR_CURRENT_ARTICLE,
     ADD_ARTICLE,
-    GET_ADMIN_ARTICLES
+    GET_ADMIN_ARTICLES,
+    UPDATE_ARTICLE_STATUS,
+    REMOVE_ARTICLE
 } from '../types'
 
 // ARTICLES
@@ -32,6 +34,11 @@ export const getPaginateArticles = (articles) => ({
 export const getArticle = (article) => ({
     type:GET_ARTICLE,
     payload:article
+})
+
+export const updateArticleStatus = (articles) => ({
+    type:UPDATE_ARTICLE_STATUS,
+    payload:articles
 })
 
 export const clearCurrentArticle = () => ({
@@ -57,6 +64,10 @@ export const clearNotification = () => {
         })
     }
 }
+
+export const removeArticle = () => ({
+    type:REMOVE_ARTICLE
+})
 
 // USERS
 

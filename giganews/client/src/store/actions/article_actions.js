@@ -61,3 +61,36 @@ export const getPaginateArticles = (page=1, limit=5) => {
         }
     }
 }
+
+export const changeStatusArticle = (status,_id) => {
+    return async(dispatch, getState)=>{
+        try{
+            const article = await Axios.patch(`/api/articles/admin/${_id}`, {
+                status
+            }, getAuthHeader())
+
+            let art = article.data
+            let state = getState().articles.adminArticles.docs ///last state
+            let position = state.findIndex( art => art._id === _id) ///find the position
+            state[position] = art
+
+            dispatch(articles.updateArticleStatus(state))
+            dispatch(articles.successGlobal('Article status successfully changed'))
+        } catch(error){
+            dispatch(articles.errorGlobal(error.response.data.message))
+        }
+    }
+}
+
+export const removeArticle = (id) => {
+    return async(dispatch)=>{
+        try{
+            await Axios.delete(`/api/articles/admin/${id}`, getAuthHeader())
+
+            dispatch(articles.removeArticle())
+            dispatch(articles.successGlobal('Article removed'))
+        } catch(error){
+            dispatch(articles.errorGlobal(error.response.data.message))
+        }
+    }
+}

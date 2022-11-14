@@ -7,12 +7,6 @@ const { sortArgsHelper } = require('../../config/helpers')
 // model
 const { Article } = require('../../models/article_model')
 
-// add single article - DONE
-// admin get,patch,delete single article (draf or public) - DONE
-// get articles no auth
-// fetch articles load more
-// fetch articles, with pagination
-
 
 /// AUTH REQUIRED - ADMIN SECTION
 
@@ -79,15 +73,15 @@ router.route('/admin/paginate')
 .post(checkLoggedIn,grantAccess('readAny','articles'), async(req,res)=>{
     try{
 
-        let aggQuery = Article.aggregate([
-            { $match: { status:'public' }},
+        // let aggQuery = Article.aggregate([
+        //     { $match: { status:'public' }},
             
-            // SEARCH IMPLEMENTATION FEATURE
-            //{ $match: { title:{ $regex:/14Lorem ipsum dolor sit amet/ } } }
-        ])
+        //     SEARCH IMPLEMENTATION FEATURE
+        //     { $match: { title:{ $regex:/14Lorem ipsum dolor sit amet/ } } }
+        // ])
 
         const limit = req.body.limit ? req.body.limit : 5
-        // const aggQuery = Article.aggregate()
+        const aggQuery = Article.aggregate()
         const options = {
             page: req.body.page,
             limit,
@@ -105,37 +99,38 @@ router.route('/admin/paginate')
 
 /// NO AUTH REQUIRED - USER SECTION
 
-router.route('/get_byid/:id')
+router.route("/get_byid/:id")
 .get(async(req,res)=>{
     try{
-        const _id = req.params.id
-        const article = await Article.find({_id:_id,status:'public'})
+        const _id = req.params.id;
+        const article = await Article.find({_id:_id,status:'public'});
         if(!article || article.length === 0){
-            return res.status(400).json({message:'Article not found'})
+            return  res.status(400).json({message:'Article not found'});
         }
         res.status(200).json(article)
     } catch(error){
-        res.status(400).json({message:'Error fetching article', error:error})
+        res.status(400).json({message:'Error fetching article',error});
     }
-
 })
 
-router.route('/loadmore')
+
+router.route("/loadmore")
 .post(async(req,res)=>{
     try{
         let sortArgs = sortArgsHelper(req.body)
 
-        const articles = await Article.find({status:'public'})
-        .sort([[sortArgs.sortBy, sortArgs.order]])
+        const articles = await Article
+        .find({status:'public'})
+        .sort([[sortArgs.sortBy,sortArgs.order]])
         .skip(sortArgs.skip)
-        .limit(sortArgs.limit)
-
+        .limit(sortArgs.limit);
+        
         res.status(200).json(articles)
-
     } catch(error){
-       res.status(400).json({message:'Error fetching articles', error:error})
+        console.log(error)
+        res.status(400).json({message:'Error fetching articles',error});
     }
-
 })
+
 
 module.exports = router

@@ -258,27 +258,54 @@ color: #525252;
   width: 100px;
   text-align: center;
   font-weight: 900;
-  color: #fff;
   cursor: pointer;
 }
 
 .articles_table .remove_btn {
-  background: #dc3545;
+  color: #dc3545;
 }
 .articles_table .remove_btn:hover {
-  background: #ee7782;
+  border:3px groove #dc3545;
 }
 
 .articles_table .edit_btn{ 
-  background: #117a8b;
+  color: #13adc5;
 }
 .articles_table .edit_btn:hover{ 
-  background: #3d99a8;
+  border:3px groove #13adc5;
 }
 
 .articles_table .status_btn {
-  background: #ffc107;
+  color: #ffc107;
+
 }
 .articles_table .status_btn:hover{ 
-  background: #ffd24c;
+  border:3px groove #ffc107;
 }
+
+/*///// PAGINATION /////////////*/
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #d9d9d9 !important;
+  background-color: #282828 !important;
+  border: 1px solid white !important;
+}
+.page-link:hover {
+      z-index: 2;
+      color: #fff !important;
+      text-decoration: none;
+      background-color: black !important;
+      border-color: #dee2e6;
+}
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: black !important;
+  border-color: black;
+}
+
