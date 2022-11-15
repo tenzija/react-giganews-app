@@ -1,10 +1,13 @@
 import React from "react";
 import AdminLayout from '../../../hoc/adminLayout'
+import AuthProfile from "./auth";
+import UserProfile from "./profile";
 
 export const Profile = () => {
     return(
         <AdminLayout section='Profile'>
-            profile
+            <AuthProfile/>
+            <UserProfile/>
         </AdminLayout>
     )
 }

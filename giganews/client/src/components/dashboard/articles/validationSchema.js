@@ -4,7 +4,7 @@ export const formValues = {
     title:'',
     content:'',
     excerpt:'',
-    score:'',
+    score:0,
     director:'',
     actors:[],
     status:'draft'

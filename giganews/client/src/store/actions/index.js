@@ -11,7 +11,9 @@ import {
     ADD_ARTICLE,
     GET_ADMIN_ARTICLES,
     UPDATE_ARTICLE_STATUS,
-    REMOVE_ARTICLE
+    REMOVE_ARTICLE,
+    CHANGE_USER_EMAIL,
+    UPDATE_USER_PROFILE
 } from '../types'
 
 // ARTICLES
@@ -76,8 +78,18 @@ export const authUser = (user) => ({
     payload: user
 })
 
+export const changeUserEmail = (data) => ({
+    type: CHANGE_USER_EMAIL,
+    payload: data
+})
+
 export const signOut = () => ({
     type: SIGN_OUT
+})
+
+export const updateUserProfile = (userdata) => ({
+    type: UPDATE_USER_PROFILE,
+    payload: userdata
 })
 
 // SITE

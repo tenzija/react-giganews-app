@@ -252,6 +252,13 @@ color: #525252;
   font-size: 20px;
 }
 
+.auth_grid .editIcon:hover{
+  border-radius: 15%;
+  background-color: #000000;
+  color: white !important;
+  cursor: pointer;
+}
+
 /*///// DASHBOARD TABLE /////////////*/
 
 .articles_table .action_btn{

@@ -54,3 +54,39 @@ export const signOut = () => {
         dispatch(users.signOut())
     }
 }
+
+export const changeUserEmail = (data) => {
+    return async(dispatch)=>{
+        try{
+            await Axios.patch(`/api/users/update_email`,{
+                email: data.email,
+                newemail: data.newemail
+            }, getAuthHeader())
+
+            dispatch(users.changeUserEmail(data.newemail))
+            dispatch(users.successGlobal('Email updated!'))
+
+        } catch(error){
+            dispatch(users.errorGlobal(error.response.data.message))
+        }
+    }
+}
+
+export const updateUserProfile = (data) => {
+    return async(dispatch,getState)=>{
+        try{
+            const profile = await Axios.patch(`/api/users/profile`, data, getAuthHeader())
+
+            const userData = {
+                ...getState().users.data,
+                ...profile.data
+            }
+
+            dispatch(users.updateUserProfile(userData))
+            dispatch(users.successGlobal('Profile updated!'))
+            
+        } catch(error){
+            dispatch(users.errorGlobal(error.response.data.message))
+        }
+    }
+}
