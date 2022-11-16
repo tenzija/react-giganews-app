@@ -90,3 +90,15 @@ export const updateUserProfile = (data) => {
         }
     }
 }
+
+export const  contactUs = (data) => {
+    return async(dispatch)=>{
+        try{
+            await Axios.post(`/api/users/contact`,data);
+            dispatch(users.successGlobal('We will contact you back'))
+        } catch(error){
+            dispatch(users.errorGlobal(error.response.data.message))
+        }
+    }
+
+}

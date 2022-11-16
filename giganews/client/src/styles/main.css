@@ -48,6 +48,10 @@ button:focus { outline: none !important;;}
   color: white;
 }
 
+.contact-title {
+  border-bottom: 1px groove black;
+}
+
 /*============ Carrousel ==============*/
 
 .carrousel_avatar {
